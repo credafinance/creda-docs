@@ -1,0 +1,51 @@
+---
+title: "Development Environment"
+description: "Set up your development environment for Creda Finance"
+---
+
+# Development Environment Setup
+
+Creda has three repos: contracts (CosmWasm), backend (NestJS indexer + APIs), and frontend (React). Below is the shortest path to get productive.
+
+## Prerequisites
+
+- Node.js 18+, pnpm, yarn
+- Rust toolchain + `wasm32-unknown-unknown`
+- Postgres, Redis, Docker (optional for optimized builds)
+
+## Repos
+
+```
+creda-contracts/   # CosmWasm smart contracts
+creda-backend/     # NestJS indexer + GraphQL/REST
+creda-frontend/    # React + TypeScript app
+```
+
+## Quick Setup
+
+Contracts:
+```
+git clone https://github.com/credafinance/creda-contracts
+cd creda-contracts && cargo test
+```
+
+Backend:
+```
+git clone https://github.com/credafinance/creda-backend
+cd creda-backend && yarn && cp .env.example .env && yarn prisma migrate dev && yarn dev
+```
+
+Frontend:
+```
+git clone https://github.com/credafinance/creda-frontend
+cd creda-frontend && pnpm i && pnpm dev
+```
+
+## Tips
+
+- Ensure Postgres/Redis are running before starting the backend
+- Use `.env.example` as a baseline for local config
+- Prefer GraphQL queries for frontend data needs
+
+If you hit environment issues, check versions first, then run with clean installs. For deeper details, see each repo’s README.
+

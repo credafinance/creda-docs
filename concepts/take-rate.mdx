@@ -1,0 +1,29 @@
+---
+title: "Take Rate"
+description: "Understanding Creda Finance's take rate and reserve factor systems"
+---
+
+# Take Rate
+
+Creda uses two mechanisms for protocol revenue: a take rate on supplied balances and a reserve factor from borrower interest.
+
+## Take Rate (on supply)
+
+- Dynamic annual fee applied to supplied balances, configured per asset via governance
+- Can be configured as:
+  - **Fixed rate**: Constant percentage (e.g., 2% yearly)
+  - **Utilization-based curve**: Rate varies with market utilization
+- Example: 2% yearly on 1,000 USDC → 20 USDC
+- Each asset can have unique take rate parameters set by governance
+
+## Reserve Factor (from borrow interest)
+
+- Portion of borrower interest kept by protocol, configured per asset via governance
+- Can be configured as:
+  - **Fixed rate**: Constant percentage of borrow interest
+  - **Utilization-based curve**: Rate increases with utilization (higher risk → higher protocol reserves)
+- Supply APY ≈ Borrow APY × Utilization × (1 − Reserve Factor)
+- Higher utilization can trigger higher reserve rates to protect the protocol during riskier market conditions
+
+Combined impact determines your net supply yield. Check the market UI for each asset's parameters.
+

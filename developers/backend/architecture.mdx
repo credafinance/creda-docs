@@ -1,0 +1,31 @@
+---
+title: "Backend Architecture"
+description: "Understanding Creda Finance's backend indexer and API system"
+---
+
+# Backend Architecture
+
+The backend ingests blockchain events, stores derived state, and serves data via GraphQL/REST.
+
+## Components
+
+- Indexer (NestJS): listens to contract events, applies handlers, writes Postgres
+- Database (Postgres + Prisma): portfolios, markets, histories
+- APIs (Apollo GraphQL + REST): typed queries for frontend and integrations
+- Jobs (BullMQ/Redis): prices, snapshots, notifications
+
+## Flow
+
+1. Contracts emit events (supply, borrow, repay, liquidate)
+2. Handlers transform events → normalized entities
+3. DB stores current state and history
+4. API exposes queries used by the app and bots
+
+## Notes
+
+- Deterministic handlers and idempotent processing
+- Price ingestion with validation and smoothing
+- Subscriptions/streaming for live dashboards
+
+See Developers → GraphQL API for examples used in production.
+

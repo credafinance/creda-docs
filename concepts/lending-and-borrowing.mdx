@@ -1,0 +1,43 @@
+---
+title: "Lending and Borrowing"
+description: "Understanding the core mechanics of Creda Finance's lending protocol"
+---
+
+# Lending and Borrowing
+
+Creda Finance matches suppliers who earn interest with borrowers who post collateral. Rates adjust with supply and demand, and every loan is over‑collateralized to protect the system.
+
+## Supplying
+
+- Deposit assets to earn variable interest (compounds automatically)
+- Enable as collateral if you plan to borrow
+- Withdraw anytime, subject to pool liquidity
+
+## Borrowing
+
+- Borrow against enabled collateral within each asset’s LTV limits
+- Maintain a safe health factor to avoid liquidation
+- Interest on borrows accrues continuously
+
+Key formulas:
+```
+Max Borrow = Collateral Value × LTV
+Health Factor = (Collateral Value × Liquidation Threshold) / Total Debt
+```
+
+## Rates In Brief
+
+- Utilization‑based: higher utilization → higher borrow and supply rates
+- Piecewise curves: gentle increases at low utilization; steep at high
+- Reserve factor: small portion of interest goes to the protocol
+
+See Interest Rates for examples and deeper context.
+
+## Practical Tips
+
+- Keep buffers: avoid borrowing to the maximum
+- Watch utilization when planning large withdrawals
+- Use EMode for correlated assets; use Isolation Mode for riskier collateral
+
+Start small, learn the flow, then increase size as you get comfortable.
+

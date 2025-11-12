@@ -1,0 +1,51 @@
+---
+title: "Isolation Mode"
+description: "Learn how isolation mode works and when to use isolated assets on Creda Finance"
+---
+
+# Isolation Mode
+
+Isolation mode lets the protocol list newer or riskier assets as collateral while strictly containing risk. When an asset is marked as isolated, using it as collateral activates special rules that prevent issues with that asset from spilling over to the rest of the protocol.
+
+## Core Rules
+
+- **Asset-specific isolation**: Each isolated asset has its own configuration defining which assets can be borrowed and their limits.
+- **No mixed collateral**: While using an isolated asset as collateral, no other assets can be enabled as collateral.
+- **Whitelisted borrows**: You may borrow only the specific assets allowed by that isolated asset's configuration (typically major stablecoins).
+- **Per-asset borrow caps**: Each borrowable asset has an individual cap (e.g., max 50 USDC, max 50 USDT).
+- **Total USD cap**: An additional limit on the total value of all borrows combined (e.g., max $75 USD total).
+- **Exit isolation**: Exiting Isolation is only possible, by fully withdrawing the isolated asset.
+
+Quick example:
+```
+ASTRO (isolated) configuration:
+- Can borrow: USDC (max 50), USDT (max 50)
+- Total borrow cap: $75 USD
+- Cannot use LUNA or other assets as collateral while ASTRO is enabled
+
+Supply $10,000 ASTRO → Can borrow up to 50 USDC + 50 USDT, but total ≤ $75 USD
+Supply LUNA alongside ASTRO → Exits isolation, different limits apply
+```
+
+## Why Use It
+
+- Access to new assets with guardrails
+- Clear limits that cap exposure
+- Keeps the broader protocol safe
+
+Use isolation when you want exposure to a higher‑risk collateral with tightly defined borrowing limits. Do not use it if you need mixed collateral or broader borrowing flexibility.
+
+## Managing Positions
+
+- Enter: Supply an asset that is marked as isolated and enable it as collateral.
+- While active: Borrow only allowed assets and respect the caps shown in the UI.
+- Exit: Disable the isolated asset as collateral or add a non‑isolated collateral (which leaves isolation and changes your risk profile).
+
+## Risks
+
+- Tighter limits: Caps may prevent scaling or require partial repayment if parameters change.
+- Asset risk: Isolated assets are newer or more volatile by design; price drops can be fast.
+- Operational: Exiting isolation can change parameters and reduce borrowing power.
+
+Keep a conservative health factor and size positions so you can manage volatility and caps without forced actions.
+

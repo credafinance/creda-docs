@@ -1,0 +1,42 @@
+---
+title: "Liquidations"
+description: "Understand how liquidations work on Creda Finance and how to avoid them"
+---
+
+# Liquidations
+
+Liquidations protect lenders and keep the protocol solvent. When a position’s health factor falls below 1.0, liquidators can repay part of the debt and receive collateral at a discount.
+
+## When It Triggers
+
+```
+Health Factor = (Collateral Value × Liquidation Threshold) / Total Debt
+Liquidatable when Health Factor < 1.0
+```
+
+Common causes: collateral price drops, interest accrual on debt, or parameter changes.
+
+## What Happens
+
+- A liquidator repays a portion of the borrower’s debt (up to the close factor)
+- The liquidator receives collateral with a small discount (liquidation bonus)
+- The borrower’s debt and collateral both decrease; health factor typically recovers above 1.0
+
+Full liquidations are rare and occur only when a position is far underwater.
+
+## How To Avoid It
+
+- Keep buffers: target a health factor well above 1.0 (e.g., 1.5+)
+- Monitor assets: set alerts for price moves and HF thresholds
+- Size sensibly: avoid maxing out LTV, especially on volatile assets
+
+If your health factor approaches 1.0, you can add collateral, repay part of the debt, or reduce exposure.
+
+## Terms At A Glance
+
+- Close factor: maximum share of debt that can be repaid in one liquidation
+- Liquidation threshold: collateral value multiplier used in HF
+- Liquidation bonus: discount applied to collateral given to liquidators
+
+Understanding these mechanics helps you plan buffers, react faster, and avoid forced sales.
+

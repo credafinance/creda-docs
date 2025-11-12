@@ -1,0 +1,110 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "theme": "mint",
+  "name": "Creda Finance Documentation",
+  "colors": {
+    "primary": "#155DFC",
+    "light": "#4D7FFF",
+    "dark": "#0A47E8"
+  },
+  "favicon": "/favicon.svg",
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Overview",
+        "groups": [
+          {
+            "group": "Introduction",
+            "pages": [
+              "index",
+              "what-is-creda",
+              "key-features",
+              "getting-started"
+            ]
+          },
+          {
+            "group": "User Guide",
+            "pages": [
+              "user-guide/connect-wallet",
+              "user-guide/supply-assets",
+              "user-guide/borrow-assets",
+              "user-guide/manage-positions"
+            ]
+          },
+          {
+            "group": "Concepts",
+            "pages": [
+              "concepts/lending-and-borrowing",
+              "concepts/interest-rates",
+              "concepts/isolation-mode",
+              "concepts/flash-loans",
+              "concepts/efficiency-mode",
+              "concepts/liquidations",
+              "concepts/oracle-pricing",
+              "concepts/understanding-health-factor",
+              "concepts/potential-risks",
+              "concepts/take-rate"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Developers",
+        "groups": [
+          {
+            "group": "Overview",
+            "pages": [
+              "developers/overview",
+              "developers/graphql-api",
+              "developers/contract-addresses"
+            ]
+          }
+        ]
+      }
+    ],
+    "global": {
+      "anchors": [
+        {
+          "anchor": "App",
+          "href": "https://creda.finance",
+          "icon": "external-link"
+        },
+        {
+          "anchor": "GitHub",
+          "href": "https://github.com/credafinance",
+          "icon": "github"
+        }
+      ]
+    }
+  },
+  "logo": {
+    "light": "/logo/light.svg",
+    "dark": "/logo/dark.svg"
+  },
+  "navbar": {
+    "links": [],
+    "primary": {
+      "type": "button",
+      "label": "Launch Creda",
+      "href": "https://creda.finance"
+    }
+  },
+  "contextual": {
+    "options": [
+      "copy",
+      "view",
+      "chatgpt",
+      "claude",
+      "perplexity",
+      "mcp",
+      "cursor",
+      "vscode"
+    ]
+  },
+  "footer": {
+    "socials": {
+      "x": "https://x.com/creda_finance",
+      "github": "https://github.com/credafinance"
+    }
+  }
+}

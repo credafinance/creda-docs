@@ -1,0 +1,35 @@
+---
+title: "Interest Rates"
+description: "Understand how interest rates work on Creda Finance and what factors influence them"
+---
+
+# Interest Rates
+
+Rates on Creda are dynamic and driven by utilization: as more of an asset’s pool is borrowed, borrow rates rise to attract supply and encourage repayment; supply rates rise alongside.
+
+## Core Ideas
+
+- Utilization model: `utilization = borrowed / supplied`
+- Rate curves: gentle at low utilization, steep near the top to protect liquidity
+- Supply APY links to borrow APY: `supply ≈ borrow × utilization × (1 − reserve factor)`
+
+Quick example:
+```
+At 80% utilization with 10% borrow APY and 15% reserve factor:
+Supply APY ≈ 10% × 0.8 × 0.85 = 6.8%
+```
+
+## What To Watch
+
+- Current utilization for assets you use
+- Recent rate ranges (not single points)
+- Protocol announcements that adjust parameters
+
+## Practical Guidance
+
+- Suppliers: diversify, avoid chasing spikes, and plan for variability
+- Borrowers: budget for rate increases and keep health buffers
+- Everyone: treat rates as changing bands; optimize without over‑trading
+
+For more on collateral safety and liquidations, see the related concepts.
+

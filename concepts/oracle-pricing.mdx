@@ -1,0 +1,39 @@
+---
+title: "Oracle Pricing"
+description: "How Creda Finance determines asset prices and ensures reliability"
+---
+
+# Oracle Pricing
+
+Creda relies on oracles to price assets, calculate borrowing power, and trigger liquidations. Prices come from multiple sources and are validated before use to keep positions fair and safe.
+
+## What Oracles Do
+
+- Provide on‑chain price data for each asset
+- Drive key calculations: health factor, LTV limits, liquidation triggers
+- Update frequently with guardrails to prevent bad data
+
+## How We Source And Validate Prices
+
+- Multiple feeds: decentralized oracle networks plus on‑chain DEX data where appropriate
+- Aggregation: median/weighted methods and smoothing to reduce noise
+- Validation: deviation limits, freshness checks, and circuit‑breaker logic for abnormal moves
+
+This reduces manipulation risk and avoids cascading liquidations from a single bad feed.
+
+## What It Means For You
+
+- Collateral up, safer: Collateral price increases improve health factor and borrowing power
+- Collateral down, riskier: Price drops reduce safety; monitor your health factor
+- Borrowed asset up: Debt value rises in USD terms; health factor can fall
+
+Plan for some oracle lag and smoothing during fast markets and set alerts on your positions.
+
+## Special Cases
+
+- Stablecoins: Extra monitoring to detect and react to depegs
+- LP/derivative tokens: Prices derived from underlying assets and pool math
+- Emerging assets: Stricter limits and/or isolation until sufficient data quality is proven
+
+Understanding oracle behavior helps you interpret health factor changes and act early during volatility.
+

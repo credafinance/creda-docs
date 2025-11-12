@@ -1,0 +1,15 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "shell",
+      "label": "Docs: Dev",
+      "command": "mint dev",
+      "options": {
+        "statusbar": {
+          "hide": false
+        }
+      }
+    }
+  ]
+}

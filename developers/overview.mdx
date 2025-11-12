@@ -1,0 +1,28 @@
+---
+title: "Developer Overview"
+description: "Overview of Creda Finance architecture for developers"
+---
+
+# Developer Overview
+
+Creda is a modular Cosmos lending protocol: CosmWasm contracts on‑chain, an indexer + API off‑chain, and a React frontend.
+
+## Architecture
+
+- Contracts: portfolio (lending/borrowing), oracle, token proxies, global config
+- Backend: indexer processes events → Postgres → GraphQL/REST APIs
+- Frontend: React + TypeScript using the GraphQL API and wallet adapters
+
+## Key Ideas
+
+- Virtual amounts with growing indices for gas‑efficient interest accrual
+- Isolation Mode to contain riskier collateral with caps
+- Oracle smoothing and validation to reduce manipulation and noise
+
+## Integrating
+
+- Query raw contract state with CosmJS where needed
+- Use the GraphQL API for enriched portfolio/market data
+
+Next: see GraphQL API for real queries and endpoints, and the backend Architecture page for system details.
+

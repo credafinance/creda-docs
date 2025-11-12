@@ -1,0 +1,220 @@
+---
+title: "GraphQL API"
+description: "Query Creda Finance data with GraphQL using real examples from the frontend"
+---
+
+# GraphQL API
+
+Creda Finance provides a GraphQL API for flexible and efficient data access. This documentation shows real examples from our frontend application, so you can see exactly how we query the data.
+
+## API Endpoint
+
+```
+https://api.creda.finance/api/graphql
+```
+
+## Interactive Explorer
+
+Explore the schema and test queries in our GraphQL playground:
+[https://api.creda.finance/api/graphql](https://api.creda.finance/api/graphql)
+
+## Real Frontend Queries
+
+These are the actual GraphQL queries used in the Creda Finance frontend application.
+
+### Get All Portfolios
+
+Used on the analytics/admin pages to show all user portfolios:
+
+```graphql
+query Portfolios {
+  portfolios(
+    where: { empty: { equals: false } }
+    orderBy: [{ lthf: { sort: asc } }]
+  ) {
+    owner_id
+    empty
+    lthf
+    created
+    changed
+    _calculated {
+      total_lt_value
+      total_borrowed_value
+      lthf
+    }
+    portfolio_supply {
+      denom
+      vamount
+      collateral
+    }
+    portfolio_borrow {
+      denom
+      vamount
+    }
+  }
+  markets {
+    denom
+    borrow_index
+    supply_index
+    token {
+      price {
+        price_usd
+      }
+    }
+  }
+}
+```
+
+**Usage in frontend:**
+```typescript
+import { graphql } from '@/generated/gql';
+import { useQuery } from '@apollo/client/react';
+
+const GET_PORTFOLIOS = graphql(`
+  query Portfolios {
+    portfolios(where: { empty: { equals: false } }, orderBy: [{ lthf: { sort: asc } }]) {
+      owner_id
+      lthf
+      _calculated {
+        total_lt_value
+        total_borrowed_value
+      }
+      # ... rest of query
+    }
+  }
+`);
+
+export const useGqlPortfolios = () => {
+  return useQuery(GET_PORTFOLIOS, {});
+};
+```
+
+### Get Transaction History
+
+Used on user portfolio pages and history views:
+
+```graphql
+query TransactionHistory(
+  $where: TransactionWhereInput
+  $take: Int
+  $skip: Int
+) {
+  transactions(
+    where: $where
+    orderBy: [{ created: desc }]
+    take: $take
+    skip: $skip
+  ) {
+    transaction_id
+    created
+    tx_hash
+    tx_type
+    vamount
+    amount
+    denom
+    value_usd
+    comment
+    sender_id
+    portfolio_id
+    liquidation_id
+    collateral
+    emode
+    liquidation_transaction {
+      id
+      created
+      tx_hash
+      liquidator_id
+      liquidated_id
+      max_liquidation_usd
+      debt_repaid_usd
+      liquidation_bonus_usd
+      liquidation_protocol_share
+      debt_repaid_denom
+      debt_repaid_amount
+      debt_repaid_vamount
+      liquidated_denom
+      liquidated_amount
+      liquidated_total
+      liquidated_vamount
+      lthf_before
+      lthf_after
+    }
+  }
+}
+```
+
+**Usage in frontend:**
+```typescript
+export const useGqlTransactionHistory = (
+  portfolio: string,
+  skip: number = 0,
+  take: number = 100,
+) => {
+  return useQuery(GET_TRANSACTION_HISTORY, {
+    variables: {
+      where: {
+        portfolio_id: { equals: portfolio }
+      },
+      take,
+      skip,
+    },
+    fetchPolicy: 'cache-and-network',
+  });
+};
+```
+
+### Get Transaction Count
+
+Used for pagination in transaction history:
+
+```graphql
+query TransactionHistoryCount($where: TransactionWhereInput) {
+  transactionsCount(where: $where)
+}
+```
+
+**Usage in frontend:**
+```typescript
+export const useGqlTransactionHistoryCount = (portfolio: string) => {
+  return useQuery(GET_TRANSACTION_HISTORY_COUNT, {
+    variables: {
+      where: {
+        portfolio_id: { equals: portfolio }
+      },
+    },
+  });
+};
+```
+
+### Get Market History
+
+Used for displaying historical market data and charts:
+
+```graphql
+query MarketHistory($denom: String!, $take: Int, $skip: Int) {
+  marketHistories(
+    where: { denom: { equals: $denom } }
+    orderBy: [{ created: desc }]
+    take: $take
+    skip: $skip
+  ) {
+    created
+    denom
+    borrow_rate
+    supply_rate
+    utilization_rate
+    total_supplied
+    total_borrowed
+  }
+}
+```
+
+**Usage in frontend:**
+```typescript
+export const useGqlMarketHistory = (denom: string, skip = 0, take: number = 100) => {
+  return useQuery(GET_MARKET_HISTORY, {
+    variables: { denom, take, skip },
+  });
+};
+```
+
