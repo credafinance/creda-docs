@@ -1,9 +1,7 @@
 ---
-title: "Understanding Health Factor"
+title: "Health Factor"
 description: "What health factor means, how it’s calculated, and how it relates to LTV"
 ---
-
-# Understanding Health Factor
 
 Health factor (HF) is the live safety gauge for your position. Keep it well above 1.0 to avoid liquidation; aim for 1.5+ as a practical buffer.
 
@@ -14,10 +12,12 @@ HF = (Σ collateral value × liquidation threshold) / total debt
 ```
 
 Interpretation:
+
 - Higher collateral or thresholds → higher HF
 - More debt or rising debt asset price → lower HF
 
 Ranges:
+
 - 2.0+: comfortable for most users
 - ~1.5: manage actively; react to volatility
 - ~1.2: risky; add collateral or repay soon
@@ -40,17 +40,19 @@ Ranges:
 LTV sets how much you can borrow initially; HF tells you how safe you are right now.
 
 LTV (Loan‑to‑Value):
+
 - Per‑asset limit used to size the initial loan
 - Example: 70% LTV → up to \$70 per \$100 collateral
 - Protocol‑set; changes infrequently
 
 HF (Health Factor):
+
 - Live risk metric using liquidation thresholds
 - `HF = (Σ collateral × threshold) / total debt`
 - HF > 1.0 is safe; \< 1.0 can be liquidated
 
 How to use them:
+
 - When borrowing: use LTV to size initial borrow
 - When monitoring: track HF as markets move
 - Good practice: borrow well below max LTV and keep HF ≥ 1.5
-

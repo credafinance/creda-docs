@@ -3,8 +3,6 @@ title: "Isolation Mode"
 description: "Learn how isolation mode works and when to use isolated assets on Creda Finance"
 ---
 
-# Isolation Mode
-
 Isolation mode lets the protocol list newer or riskier assets as collateral while strictly containing risk. When an asset is marked as isolated, using it as collateral activates special rules that prevent issues with that asset from spilling over to the rest of the protocol.
 
 ## Core Rules
@@ -17,6 +15,7 @@ Isolation mode lets the protocol list newer or riskier assets as collateral whil
 - **Exit isolation**: Exiting Isolation is only possible, by fully withdrawing the isolated asset.
 
 Quick example:
+
 ```
 ASTRO (isolated) configuration:
 - Can borrow: USDC (max 50), USDT (max 50)
@@ -48,4 +47,3 @@ Use isolation when you want exposure to a higher‑risk collateral with tightly 
 - Operational: Exiting isolation can change parameters and reduce borrowing power.
 
 Keep a conservative health factor and size positions so you can manage volatility and caps without forced actions.
-

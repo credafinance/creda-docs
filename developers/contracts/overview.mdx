@@ -3,8 +3,6 @@ title: "Smart Contracts Overview"
 description: "Understanding Creda Finance's CosmWasm smart contract architecture"
 ---
 
-# Smart Contracts Overview
-
 Creda Finance is built on a modular architecture of CosmWasm smart contracts deployed on Cosmos-based blockchains. This design provides security, upgradeability, and composability while maintaining the core lending protocol functionality.
 
 ## Contract Architecture
@@ -15,12 +13,12 @@ graph TB
     A --> C[Oracle Contract]
     A --> D[Token Proxy Contracts]
     A --> E[Liquidator Contract]
-    
+
     B --> C
     B --> D
     E --> B
     E --> C
-    
+
     F[Users] --> B
     F --> D
     G[Price Feeds] --> C
@@ -30,6 +28,7 @@ graph TB
 ## Core Contracts
 
 ### 1. Global Config (`util-global-config`)
+
 **Central Registry and Governance**
 
 The global config contract serves as the central registry and governance hub:
@@ -40,12 +39,14 @@ The global config contract serves as the central registry and governance hub:
 - **Upgrade Coordination**: Manages contract upgrades and migrations
 
 **Key Responsibilities:**
+
 - Register and update contract addresses
 - Manage protocol ownership and admin rights
 - Store global configuration parameters
 - Coordinate multi-contract operations
 
 ### 2. Portfolio Contract (`creda-portfolio`)
+
 **Core Lending Logic**
 
 The portfolio contract implements all core lending functionality:
@@ -58,6 +59,7 @@ The portfolio contract implements all core lending functionality:
 - **Health Monitoring**: Real-time position health tracking
 
 **Key Features:**
+
 - Virtual amount system for gas efficiency
 - Isolation mode for risky assets
 - Efficiency mode for correlated assets
@@ -65,6 +67,7 @@ The portfolio contract implements all core lending functionality:
 - Multi-asset collateral support
 
 ### 3. Oracle Contract (`creda-oracle`)
+
 **Price Feed Management**
 
 The oracle contract provides reliable price data:
@@ -76,12 +79,14 @@ The oracle contract provides reliable price data:
 - **Admin Controls**: Emergency price overrides and circuit breakers
 
 **Price Categories:**
+
 - **Major**: LUNA, ATOM - minimal smoothing
 - **Stable**: USDC, USDT - tight validation ranges
 - **LongTail**: Smaller tokens - enhanced smoothing
 - **LP**: Liquidity provider tokens - special calculations
 
 ### 4. Token Proxy Contracts (`creda-token-proxy`)
+
 **Asset Representation**
 
 Each supported asset has a token proxy contract:
@@ -93,12 +98,14 @@ Each supported asset has a token proxy contract:
 - **Metadata Storage**: Token name, symbol, decimals
 
 **Per-Asset Deployment:**
+
 - One proxy contract per supported asset
 - Spawned during asset initialization
 - Manages all user balances for that asset
 - Integrates with portfolio contract for operations
 
 ### 5. Liquidator Contract (`creda-liquidator`)
+
 **Liquidation Automation**
 
 Handles the liquidation process:
@@ -134,6 +141,7 @@ vamount_to_borrow = amount / borrow_index   // Ceiling division
 ```
 
 **Benefits:**
+
 - **Gas Efficiency**: No need to update all user balances
 - **Compound Interest**: Interest compounds automatically
 - **Scalability**: Supports unlimited users without gas concerns
@@ -158,6 +166,7 @@ vec![
 ```
 
 **Utilization-Based Rates:**
+
 - Low utilization → Low rates (encourage borrowing)
 - Optimal utilization (70-80%) → Moderate rates
 - High utilization → High rates (encourage repayment)
@@ -186,6 +195,7 @@ struct BorrowCap {
 ```
 
 **Isolation Rules:**
+
 - Isolated assets can only be supplied alone
 - Individual caps per borrowable asset
 - Total cap across all borrowed assets
@@ -210,6 +220,7 @@ struct Portfolio {
 ```
 
 **EMode Benefits:**
+
 - Higher borrowing capacity (e.g., 93% vs 70% LTV)
 - Only available when supplying group assets only
 - Automatic activation/deactivation
@@ -392,11 +403,11 @@ use cw_multi_test::{App, ContractWrapper, Executor};
 #[test]
 fn test_supply_and_borrow() {
     let mut app = App::default();
-    
+
     // Deploy contracts
     let portfolio_id = app.store_code(portfolio_contract());
     let oracle_id = app.store_code(oracle_contract());
-    
+
     // Initialize contracts
     let portfolio_addr = app.instantiate_contract(
         portfolio_id,
@@ -406,7 +417,7 @@ fn test_supply_and_borrow() {
         "portfolio",
         None,
     ).unwrap();
-    
+
     // Test supply operation
     let supply_msg = ExecuteMsg::Supply { /* ... */ };
     let res = app.execute_contract(
@@ -415,15 +426,15 @@ fn test_supply_and_borrow() {
         &supply_msg,
         &coins(1000, "uluna"),
     );
-    
+
     assert!(res.is_ok());
-    
+
     // Verify state changes
     let portfolio: PortfolioResponse = app.wrap().query_wasm_smart(
         portfolio_addr,
         &QueryMsg::Portfolio { address: "user1".to_string() }
     ).unwrap();
-    
+
     assert_eq!(portfolio.supplies.len(), 1);
 }
 ```
@@ -438,7 +449,7 @@ cargo run --bin schema
 
 # Outputs to api/creda-portfolio/schema/
 # - instantiate_msg.json
-# - execute_msg.json  
+# - execute_msg.json
 # - query_msg.json
 # - migrate_msg.json
 ```
@@ -482,7 +493,7 @@ Contracts support migration for upgrades:
 #[cfg_attr(not(feature = "library"), entry_point)]
 pub fn migrate(deps: DepsMut, _env: Env, msg: MigrateMsg) -> Result<Response, ContractError> {
     let ver = get_contract_version(deps.storage)?;
-    
+
     // Ensure we're migrating from compatible version
     if ver.contract != CONTRACT_NAME {
         return Err(ContractError::InvalidMigration {

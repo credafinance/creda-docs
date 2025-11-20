@@ -3,8 +3,6 @@ title: "Lending and Borrowing"
 description: "Understanding the core mechanics of Creda Finance's lending protocol"
 ---
 
-# Lending and Borrowing
-
 Creda Finance matches suppliers who earn interest with borrowers who post collateral. Rates adjust with supply and demand, and every loan is over‑collateralized to protect the system.
 
 ## Supplying
@@ -20,6 +18,7 @@ Creda Finance matches suppliers who earn interest with borrowers who post collat
 - Interest on borrows accrues continuously
 
 Key formulas:
+
 ```
 Max Borrow = Collateral Value × LTV
 Health Factor = (Collateral Value × Liquidation Threshold) / Total Debt
@@ -40,4 +39,3 @@ See Interest Rates for examples and deeper context.
 - Use EMode for correlated assets; use Isolation Mode for riskier collateral
 
 Start small, learn the flow, then increase size as you get comfortable.
-

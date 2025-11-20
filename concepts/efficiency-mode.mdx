@@ -3,8 +3,6 @@ title: "Efficiency Mode (EMode)"
 description: "Learn how Efficiency Mode works and how to maximize capital efficiency with correlated assets"
 ---
 
-# Efficiency Mode (EMode)
-
 Efficiency Mode (EMode) lets you borrow more when your collateral and debt are tightly correlated. Instead of using each asset’s standalone limits, EMode applies group parameters (LTV and liquidation threshold) to assets that move together, improving capital efficiency while keeping risk contained to that group.
 
 ## How It Works
@@ -14,6 +12,7 @@ Efficiency Mode (EMode) lets you borrow more when your collateral and debt are t
 - Single‑group rule: Collateral must stay within that group; adding any other collateral disables EMode.
 
 Quick example:
+
 ```
 Standard: $10,000 LUNA at 70% LTV → $7,000 max borrow
 EMode (Luna group): $10,000 LUNA at 93% LTV → $9,300 max borrow
@@ -46,6 +45,7 @@ Use EMode when your collateral and intended borrow are closely correlated (e.g.,
 - Concentration: all collateral sits in a single group
 
 Simple guardrails:
+
 ```
 Stay below max: target 80–90% of the group LTV
 Track health factor; set alerts for drawdowns
@@ -54,11 +54,18 @@ Track health factor; set alerts for drawdowns
 ## Related Topics
 
 <Columns cols={2}>
-  <Card title="Lending & Borrowing" icon="arrows-rotate" href="/concepts/lending-and-borrowing">
+  <Card
+    title="Lending & Borrowing"
+    icon="arrows-rotate"
+    href="/concepts/lending-and-borrowing"
+  >
     Core mechanics that EMode builds on.
   </Card>
-  <Card title="Health Factor" icon="heart-pulse" href="/concepts/understanding-health-factor">
+  <Card
+    title="Health Factor"
+    icon="heart-pulse"
+    href="/concepts/understanding-health-factor"
+  >
     How safety is measured with group parameters.
   </Card>
 </Columns>
-

@@ -3,8 +3,6 @@ title: "GraphQL API"
 description: "Query Creda Finance data with GraphQL using real examples from the frontend"
 ---
 
-# GraphQL API
-
 Creda Finance provides a GraphQL API for flexible and efficient data access. This documentation shows real examples from our frontend application, so you can see exactly how we query the data.
 
 ## API Endpoint
@@ -66,13 +64,17 @@ query Portfolios {
 ```
 
 **Usage in frontend:**
+
 ```typescript
-import { graphql } from '@/generated/gql';
-import { useQuery } from '@apollo/client/react';
+import { graphql } from "@/generated/gql";
+import { useQuery } from "@apollo/client/react";
 
 const GET_PORTFOLIOS = graphql(`
   query Portfolios {
-    portfolios(where: { empty: { equals: false } }, orderBy: [{ lthf: { sort: asc } }]) {
+    portfolios(
+      where: { empty: { equals: false } }
+      orderBy: [{ lthf: { sort: asc } }]
+    ) {
       owner_id
       lthf
       _calculated {
@@ -144,21 +146,22 @@ query TransactionHistory(
 ```
 
 **Usage in frontend:**
+
 ```typescript
 export const useGqlTransactionHistory = (
   portfolio: string,
   skip: number = 0,
-  take: number = 100,
+  take: number = 100
 ) => {
   return useQuery(GET_TRANSACTION_HISTORY, {
     variables: {
       where: {
-        portfolio_id: { equals: portfolio }
+        portfolio_id: { equals: portfolio },
       },
       take,
       skip,
     },
-    fetchPolicy: 'cache-and-network',
+    fetchPolicy: "cache-and-network",
   });
 };
 ```
@@ -174,12 +177,13 @@ query TransactionHistoryCount($where: TransactionWhereInput) {
 ```
 
 **Usage in frontend:**
+
 ```typescript
 export const useGqlTransactionHistoryCount = (portfolio: string) => {
   return useQuery(GET_TRANSACTION_HISTORY_COUNT, {
     variables: {
       where: {
-        portfolio_id: { equals: portfolio }
+        portfolio_id: { equals: portfolio },
       },
     },
   });
@@ -210,11 +214,15 @@ query MarketHistory($denom: String!, $take: Int, $skip: Int) {
 ```
 
 **Usage in frontend:**
+
 ```typescript
-export const useGqlMarketHistory = (denom: string, skip = 0, take: number = 100) => {
+export const useGqlMarketHistory = (
+  denom: string,
+  skip = 0,
+  take: number = 100
+) => {
   return useQuery(GET_MARKET_HISTORY, {
     variables: { denom, take, skip },
   });
 };
 ```
-
